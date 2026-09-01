@@ -9,14 +9,14 @@ import random
 
 from agents import describe_environment, find_crossover, simple_reflex_agent
 from environment import (
-    A,
     ACTIONS,
-    B,
     CLEAN,
     DIRTY,
     LEFT,
     RIGHT,
     SUCK,
+    A,
+    B,
     VacuumEnvironment,
     run,
 )
@@ -75,7 +75,7 @@ def test_cleans_both_squares() -> None:
 
 
 def test_cleans_both_squares_in_three_steps() -> None:
-    """Suck, move, suck. There is no faster route from all dirty to all clean."""
+    """Suck, move, suck. No faster route from all dirty to all clean."""
     environment = run(simple_reflex_agent, status={A: DIRTY, B: DIRTY}, steps=3)
     assert environment.clean_squares() == 2
 
@@ -131,3 +131,14 @@ def test_crossover_is_stable_across_seeds() -> None:
         random.seed(seed)
         results.append(find_crossover())
     assert max(results) - min(results) <= 8
+
+
+def test_free_movement_removes_the_crossover() -> None:
+    """With moving free, the reflex agent never falls behind.
+
+    Same two agents, same world, one number changed in the performance
+    measure. The crossover stops existing, so the search runs to the end
+    of its range and reports -1.
+    """
+    random.seed(303)
+    assert find_crossover(move_cost=0) == -1

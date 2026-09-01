@@ -10,8 +10,13 @@ from __future__ import annotations
 
 import random
 
-from agents import describe_environment, find_crossover, random_agent, simple_reflex_agent
-from environment import A, B, DIRTY, VacuumEnvironment, run
+from agents import (
+    describe_environment,
+    find_crossover,
+    random_agent,
+    simple_reflex_agent,
+)
+from environment import DIRTY, A, B, VacuumEnvironment, run
 
 TRACE_STEPS = 12
 HORIZONS = (10, 60)
@@ -23,7 +28,11 @@ def trace_reflex_agent() -> None:
     """Print one step-by-step run so you can watch the agent decide."""
     print(f"One run, starting dirty in both squares, {TRACE_STEPS} steps.")
     print()
-    print(f"{'step':>4}  {'percept':<18} {'action':<7} {'A':<7} {'B':<7} {'score':>5}")
+    header = (
+        f"{'step':>4}  {'percept':<18} {'action':<7} "
+        f"{'A':<7} {'B':<7} {'score':>5}"
+    )
+    print(header)
     print("-" * 56)
 
     environment = VacuumEnvironment(status={A: DIRTY, B: DIRTY}, location=A)
@@ -44,14 +53,20 @@ def trace_reflex_agent() -> None:
 def compare_against_random() -> None:
     """Score the reflex agent against the agent that is not thinking at all."""
     print("Now score it against an agent that ignores its percept entirely.")
-    print(f"Both start dirty in both squares. Random is the mean of {TRIALS} runs.")
+    print(
+        "Both start dirty in both squares. "
+        f"Random is the mean of {TRIALS} runs."
+    )
     print()
     print(f"{'horizon':>9} {'reflex':>9} {'random':>9}   {'winner':<8}")
     print("-" * 42)
 
     random.seed(SEED)
     for steps in HORIZONS:
-        reflex = run(simple_reflex_agent, status={A: DIRTY, B: DIRTY}, steps=steps).score
+        finished = run(
+            simple_reflex_agent, status={A: DIRTY, B: DIRTY}, steps=steps
+        )
+        reflex = finished.score
         total = sum(
             run(random_agent, status={A: DIRTY, B: DIRTY}, steps=steps).score
             for _ in range(TRIALS)
@@ -61,9 +76,10 @@ def compare_against_random() -> None:
         print(f"{steps:>9} {reflex:>9} {rnd:>9.1f}   {winner:<8}")
 
     print()
-    print("The winner changes somewhere between those two horizons. Your agent is")
-    print("not broken and the random agent did not get smarter. Finding exactly")
-    print("where the change happens is your job, in find_crossover.")
+    print("The winner changes somewhere between those two horizons.")
+    print("Your agent is not broken and the random agent did not get")
+    print("smarter. Finding exactly where the change happens is your job,")
+    print("in find_crossover.")
     print()
 
 
@@ -73,9 +89,11 @@ def report_crossover() -> None:
     if crossover == -1:
         print("find_crossover did not find a crossover. Check your loop.")
     else:
-        print(f"Your find_crossover says the random agent takes the lead at "
-              f"{crossover} steps.")
-        print("Write that number in your reflection, and be ready to explain it.")
+        print(
+            "Your find_crossover says the random agent takes the lead at "
+            f"{crossover} steps."
+        )
+        print("Write that number in your reflection, and explain it.")
     print()
 
 
@@ -88,6 +106,7 @@ def show_environment_description() -> None:
 
 
 def main() -> None:
+    """Run every part of the demonstration in order."""
     trace_reflex_agent()
     compare_against_random()
     report_crossover()

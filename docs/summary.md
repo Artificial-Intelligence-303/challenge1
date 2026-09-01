@@ -47,15 +47,19 @@ TODO
 
 ---
 
-> **4. Interrogate the performance measure.**
+> **4. Change the performance measure and report what happens.**
 >
-> The score charges one point per move and pays one point per clean square per
-> time step. Somebody chose that. Suppose instead that moving were free.
+> The environment charges one point for every move. That number is
+> `move_cost`, and somebody chose it.
 >
-> Would your agent become rational without changing a line of its code? What
-> does that tell you about where "rational" actually lives: in the agent, in the
-> environment, or in the performance measure? Give a case outside this
-> assignment where choosing the performance measure badly would matter.
+> **Run `find_crossover(move_cost=0)` and state what it returns.** Then
+> explain the result: what does that number mean, and why does making
+> movement free produce it?
+>
+> Then answer the question the experiment sets up. You did not change a
+> single line of your agent. So is "rational" a property of the agent, of
+> the environment, or of something else? Give one case outside this
+> assignment where choosing that number badly would matter.
 
 TODO
 

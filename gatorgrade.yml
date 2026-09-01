@@ -60,6 +60,11 @@
   options:
     command: uv run pytest tests/test_agents.py::test_crossover_is_stable_across_seeds
 
+- description: "[CROSSOVER] Making movement free removes the crossover entirely"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_free_movement_removes_the_crossover
+
 - description: "[PROPERTIES] All six environment properties are classified"
   check: ExecuteCommand
   options:
@@ -69,6 +74,11 @@
   check: ExecuteCommand
   options:
     command: uv run pytest tests/test_agents.py::test_description_is_correct
+
+- description: "[STYLE] Code follows the Google Python style guide"
+  check: ExecuteCommand
+  options:
+    command: uv run ruff check src tests
 
 - description: "[STYLE] Type annotations check out"
   check: ExecuteCommand

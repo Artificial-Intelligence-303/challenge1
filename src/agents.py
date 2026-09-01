@@ -9,15 +9,13 @@ from __future__ import annotations
 import random
 
 from environment import (
-    A,
     ACTIONS,
-    B,
-    CLEAN,
     DIRTY,
     LEFT,
-    NOOP,
     RIGHT,
     SUCK,
+    A,
+    B,
     Percept,
     run,
 )
@@ -68,7 +66,11 @@ def describe_environment() -> dict[str, str]:
     raise NotImplementedError("describe_environment is not implemented yet")
 
 
-def find_crossover(max_steps: int = 100, trials: int = 400) -> int:
+def find_crossover(
+    max_steps: int = 100,
+    trials: int = 400,
+    move_cost: int = 1,
+) -> int:
     """Find the horizon where the random agent starts beating the reflex agent.
 
     Run both agents from a world that starts dirty in both squares. For a short
@@ -85,15 +87,20 @@ def find_crossover(max_steps: int = 100, trials: int = 400) -> int:
     3. Return the first horizon where the random mean is strictly greater than
        the reflex score.
 
-    Use `run()` from `environment`, which returns a finished environment whose
-    `.score` you can read. Do not lower `trials` below 200; the mean gets too
-    noisy to trust and your answer will move around between runs.
+    Pass `move_cost` straight through to `run()`. It is what the
+    environment charges for each move, and question 4 of the reflection
+    asks you to run this function with a different value for it.
 
-    Whatever number you get, put it in `docs/summary.md` and explain it. 
+    Use `run()` from `environment`, which returns a finished environment
+    whose `.score` you can read. Do not lower `trials` below 200; the mean
+    gets too noisy to trust and your answer will move around between runs.
+
+    Whatever number you get, put it in `docs/summary.md` and explain it.
 
     Args:
         max_steps: The longest horizon to test.
         trials: How many random runs to average at each horizon.
+        move_cost: Points the environment charges for each move.
 
     Returns:
         The smallest horizon at which the random agent's mean score beats the

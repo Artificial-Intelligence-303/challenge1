@@ -71,6 +71,11 @@ strictly higher. Return `-1` if it never happens.
 Keep `trials` at 200 or more. Below that the mean is too noisy and your answer
 will move around between runs.
 
+`find_crossover` also takes a `move_cost`, which you pass straight through to
+`run()`. It is what the environment charges for each move, and question 4 of
+the reflection has you run the whole experiment again with a different value
+for it.
+
 **Whatever number you get, write it in your reflection.** You are asked to
 explain it, and you cannot explain a number you did not produce.
 
@@ -81,14 +86,32 @@ explain it, and you cannot explain a number you did not produce.
 ```
 uv run python src/main.py     # watch your agent work, and see the comparison
 uv run pytest                 # run the tests
+uv run ruff check src tests   # check your style
+uv run ruff format src tests  # fix most style problems automatically
 uv run gatorgrade             # run the checks the way they will be graded
 ```
+
+## Style
+
+Your code is checked against the [Google Python Style
+Guide](https://google.github.io/styleguide/pyguide.html), which is a widely
+used standard rather than anything invented for this course. `ruff` enforces
+the parts that can be checked automatically:
+
+- **80 character lines** (guide section 3.2).
+- **Google-style docstrings** with `Args:` and `Returns:` sections (3.8.3).
+- **`lower_with_under` functions, `CAPS_WITH_UNDER` constants** (3.16.4).
+- **Imports grouped and at the top of the file** (3.13), no unused imports.
+
+Run `uv run ruff check src tests` before you submit. Most complaints are fixed
+by `uv run ruff format src tests`. The rest tell you exactly which line and
+which rule.
 
 Start with `src/main.py`. It prints a step-by-step trace of one run, then scores
 your agent against an agent that ignores its percept entirely and picks at
 random, at a short horizon and a long one. **The winner changes between them.**
-That reversal is expected and it is not a bug in your code. `find_crossover` has you 
-find out where it happens, and question 2 of the reflection is asks you to
+That reversal is expected and it is not a bug in your code. `find_crossover`
+has you find out where it happens, and question 2 of the reflection asks you to
 explain why.
 
 ## Evaluation
@@ -116,7 +139,10 @@ These are:
 - The agent keeps moving once the world is clean, as a simple reflex agent must.
 - `find_crossover` finds a crossover, it lands in the expected window, and it
   stays put when the random seed changes.
+- `find_crossover` honors `move_cost`, so making movement free removes the
+  crossover entirely.
 - All six environment properties are present and correctly classified.
+- Style passes `ruff`, which checks the Google Python Style Guide rules above.
 - Type annotations check out under `mypy`.
 - No `TODO` markers are left behind, and your code carries at least four
   comments explaining your reasoning.
@@ -170,6 +196,20 @@ Concretely, for this assignment:
 - **A tool cannot do `find_crossover` for you.** It can write the loop. It
   cannot tell you your number, because your number comes from running your code.
   If you report a number you did not run, you might run into a problem during the verbal check.
+
+## How this assignment was built
+
+You are asked below to disclose your AI use, so here is mine, in the same three
+parts.
+
+I used Claude to draft `src/environment.py` and the tests. I wrote much of this README,
+starting from the two-square vacuum world in Russell and Norvig chapter 2. I
+decided the problem, the performance measure that charges a point for every
+move, and that you would have to find the crossover yourself rather than be told
+it. I ran everything before releasing it: the reference solution passes every
+check, the unfinished starter fails every test, and the crossover window in the
+test was measured across several random seeds rather than estimated. The wording
+throughout is mine.
 
 ## Disclosing your AI use
 
