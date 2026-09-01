@@ -1,0 +1,44 @@
+name: Verbal Check
+description: The short spoken check on a challenge, done in lab with the instructor.
+title: "Challenge 1 Verbal Check"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Filled in by the instructor during lab. The student answers two or three
+        questions about their own code **without looking at it**. This is a
+        check on understanding, not a presentation.
+  - type: input
+    attributes:
+      label: Student
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: The code works
+      description: Confirmed before the conversation starts.
+      options:
+        - label: The submitted code runs
+        - label: The automated checks were run and the results reviewed
+  - type: checkboxes
+    attributes:
+      label: Understanding
+      description: Check what the student explained correctly, unprompted.
+      options:
+        - label: Explains why this environment is partially observable, in terms of what the percept contains rather than what the source file contains
+        - label: Explains why the random agent overtakes the reflex agent on long runs, referring to the movement charge
+        - label: Identifies the one fact the agent would need to remember, and connects it to the absence of state in the function signature
+        - label: Explains a design choice in their own code without reading it
+  - type: dropdown
+    attributes:
+      label: Outcome
+      options:
+        - "Passed: explained their own work clearly"
+        - "Passed with gaps: correct code, shaky explanation, follow up next lab"
+        - "Not yet: could not explain the submitted code, revisit required"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Notes
+      description: What to follow up on, and anything worth remembering for the next challenge.

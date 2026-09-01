@@ -1,0 +1,18 @@
+[project]
+name = "challenge-01-reflex-agent"
+version = "1.0.0"
+description = "CMPSC 303 Challenge 1: a simple reflex agent in the vacuum world."
+requires-python = ">=3.11"
+dependencies = [
+    "gatorgrade",
+    "mypy>=1.11",
+    "pytest",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.mypy]
+ignore_missing_imports = true
+mypy_path = "src"

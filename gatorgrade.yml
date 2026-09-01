@@ -1,0 +1,103 @@
+# Automated checks for Challenge 1. Run them yourself with:
+#
+#     uv run gatorgrade --config gatorgrade.yml
+#
+# These are the same checks that run on GitHub when you push. Results are
+# preliminary: the final grade is the instructor's call, not the autograder's.
+
+- description: "[AGENT] Sucks whenever it is standing on a dirty square"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_sucks_when_standing_on_dirt
+
+- description: "[AGENT] Moves right from a clean square A"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_moves_right_from_a_when_a_is_clean
+
+- description: "[AGENT] Moves left from a clean square B"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_moves_left_from_b_when_b_is_clean
+
+- description: "[AGENT] Only ever returns actions the environment accepts"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_only_returns_legal_actions
+
+- description: "[AGENT] Holds no state between calls, so it is genuinely a reflex agent"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_ignores_everything_except_the_percept
+
+- description: "[AGENT] Cleans both squares when started dirty everywhere"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_cleans_both_squares
+
+- description: "[AGENT] Cleans both squares in the minimum three steps"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_cleans_both_squares_in_three_steps
+
+- description: "[AGENT] Keeps moving once the world is clean, as a reflex agent must"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_keeps_moving_after_the_world_is_clean
+
+- description: "[CROSSOVER] The random agent is found to overtake the reflex agent"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_crossover_is_found_at_all
+
+- description: "[CROSSOVER] The crossover lands in the expected window"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_crossover_lands_where_it_should
+
+- description: "[CROSSOVER] The crossover is stable across different random seeds"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_crossover_is_stable_across_seeds
+
+- description: "[PROPERTIES] All six environment properties are classified"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_description_has_the_six_required_keys
+
+- description: "[PROPERTIES] Every environment property is classified correctly"
+  check: ExecuteCommand
+  options:
+    command: uv run pytest tests/test_agents.py::test_description_is_correct
+
+- description: "[STYLE] Type annotations check out"
+  check: ExecuteCommand
+  options:
+    command: uv run mypy src tests
+
+- src/agents.py:
+  - description: "[STYLE] No unfinished TODO markers are left in the code"
+    check: MatchFileFragment
+    options:
+      fragment: "TODO"
+      count: 0
+      exact: true
+  - description: "[STYLE] The code carries at least 4 comments explaining your reasoning"
+    check: MatchFileFragment
+    options:
+      fragment: "#"
+      count: 4
+      exact: false
+
+- docs/summary.md:
+  - description: "[REFLECTION] The reflection has no TODO markers left in it"
+    check: MatchFileFragment
+    options:
+      fragment: "TODO"
+      count: 0
+      exact: true
+  - description: "[REFLECTION] The reflection meets the 300 word minimum"
+    check: CountFileWords
+    options:
+      count: 300
+      exact: false
