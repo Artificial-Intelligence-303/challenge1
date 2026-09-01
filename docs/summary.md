@@ -1,8 +1,7 @@
 # Challenge 1 Reflection
 
 Answer all four questions. **300 words minimum across the whole document.** You
-are graded on whether the reasoning is correct and specific to this environment,
-not on word count. Replace every `TODO` before you submit.
+are graded on whether the reasoning is correct and specific to this environment. Replace every `TODO` before you submit.
 
 ---
 
@@ -12,15 +11,14 @@ not on word count. Replace every `TODO` before you submit.
 > and say what in `src/environment.py` makes your answer the right one. Point at
 > specific behavior, not general intuitions about vacuum cleaners.
 >
-> Spend the most time on observability. There is a distinction here that is easy
-> to get backwards, and it has to do with the difference between what you can
+> Note on observability: think of the difference between what you can
 > see reading the code and what the agent can see at run time.
 
 TODO
 
 ---
 
-> **2. Explain the reversal, and your crossover number.**
+> **2. Explain your crossover number.**
 >
 > **State the number your `find_crossover` returned.** Then explain it. Your
 > reflex agent beats the random agent over short runs and loses over long ones,
@@ -36,7 +34,7 @@ TODO
 
 ---
 
-> **3. Name the missing bit.**
+> **3. Name the missing piece.**
 >
 > There is one fact your agent would need to remember in order to stop losing
 > points on long runs. What is it, and what would it do differently once it knew

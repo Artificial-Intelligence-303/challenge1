@@ -87,9 +87,9 @@ uv run gatorgrade             # run the checks the way they will be graded
 Start with `src/main.py`. It prints a step-by-step trace of one run, then scores
 your agent against an agent that ignores its percept entirely and picks at
 random, at a short horizon and a long one. **The winner changes between them.**
-That reversal is expected and it is not a bug in your code. `find_crossover` is you
-pinning down where it happens, and question 2 of the reflection is you
-explaining why.
+That reversal is expected and it is not a bug in your code. `find_crossover` has you 
+find out where it happens, and question 2 of the reflection is asks you to
+explain why.
 
 ## Evaluation
 

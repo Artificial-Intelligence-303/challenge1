@@ -78,7 +78,7 @@ def find_crossover(max_steps: int = 100, trials: int = 400) -> int:
     For each horizon from 1 up to and including `max_steps`:
 
     1. Score `simple_reflex_agent` over one run of that many steps. It is
-       deterministic, so a single run is the whole answer.
+       deterministic, so one run is sufficient.
     2. Score `random_agent` over `trials` runs of that many steps and take the
        mean. It is not deterministic, which is why one run would not tell you
        anything.
@@ -89,8 +89,7 @@ def find_crossover(max_steps: int = 100, trials: int = 400) -> int:
     `.score` you can read. Do not lower `trials` below 200; the mean gets too
     noisy to trust and your answer will move around between runs.
 
-    Whatever number you get, put it in `docs/summary.md`. You are asked to
-    explain it, and you cannot explain a number you did not produce.
+    Whatever number you get, put it in `docs/summary.md` and explain it. 
 
     Args:
         max_steps: The longest horizon to test.
